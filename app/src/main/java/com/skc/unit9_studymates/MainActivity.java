@@ -32,6 +32,12 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("*/*");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Hey Study Partner");
+                if(emailIntent.resolveActivity(getPackageManager()) != null){
+                    startActivity(emailIntent);
+                }
             }
         });
 
@@ -109,18 +115,24 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+        } else if (id == R.id.nav_sms) {
+            Intent textMessageIntent = new Intent(Intent.ACTION_SEND);
+            textMessageIntent.setData(Uri.parse("smsto:"));
+            textMessageIntent.putExtra("sms_body", "Hey Study Partner");
+        } else if (id == R.id.nav_email) {
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("*/*");
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Hey Study Partner");
+            if(emailIntent.resolveActivity(getPackageManager()) != null){
+                startActivity(emailIntent);
+            }
+        } else if (id == R.id.nav_add) {
+            Toast.makeText(getApplicationContext(), "Add not added", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_remove) {
+            Toast.makeText(getApplicationContext(), "TODO remove remove", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
